@@ -1,0 +1,141 @@
+:root{
+  --bg1:#0b1220;         /* noche azul profunda */
+  --bg2:#16253f;
+  --accent:#26c6ff;      /* celeste */
+  --love:#ff477e;        /* rosa amor */
+  --love-2:#ff7a7a;      /* coral/rosa */
+  --text:#e6edf6;
+  --muted:#9bb0cf;
+  --glow:0 0 24px rgba(255,71,126,.35), 0 0 60px rgba(38,198,255,.25);
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  color:var(--text);
+  font-family: Inter, ui-sans-serif, system-ui, Segoe UI, Roboto, Arial, sans-serif;
+  overflow:hidden; /* para que no aparezca scroll con las animaciones */
+}
+
+/* Fondo animado */
+#bg{
+  position:fixed; inset:0;
+  background:
+    radial-gradient(1200px 700px at 0% 100%, rgba(255,71,126,.18), transparent 60%),
+    radial-gradient(1000px 600px at 100% 0%, rgba(38,198,255,.14), transparent 60%),
+    linear-gradient(160deg, var(--bg1), var(--bg2));
+  animation: drift 18s ease-in-out infinite alternate;
+  z-index:-2;
+  filter: saturate(1.1);
+}
+@keyframes drift{
+  from{ filter:hue-rotate(0deg) saturate(1.05); }
+  to  { filter:hue-rotate(10deg) saturate(1.2); }
+}
+
+/* Capa donde se dibujan los corazones */
+#hearts{
+  position:fixed; inset:0;
+  pointer-events:none; /* que no bloquee clics */
+  z-index:-1;
+}
+
+/* Contenido principal */
+.center{
+  height:100%;
+  display:grid;
+  place-items:center;
+  text-align:center;
+  padding:24px;
+}
+
+.big-heart{
+  font-size:clamp(40px, 7vw, 96px);
+  line-height:1;
+  margin-bottom:10px;
+  animation: heartbeat 1.6s ease-in-out infinite;
+  text-shadow: var(--glow);
+  color: var(--love);
+}
+@keyframes heartbeat{
+  0%, 20%, 100%{ transform: scale(1); }
+  10%{ transform: scale(1.2); }
+  14%{ transform: scale(1.05); }
+}
+
+h1.type{
+  margin:0;
+  font-weight:800;
+  font-size:clamp(24px, 6vw, 56px);
+  letter-spacing:.5px;
+  text-shadow: 0 6px 30px rgba(0,0,0,.45), var(--glow);
+}
+.cursor{
+  display:inline-block;
+  width:1ch;
+  animation: blink 1s step-end infinite;
+  color: var(--accent);
+}
+@keyframes blink{ 50%{ opacity:0; } }
+
+.subtitle{
+  margin-top:14px;
+  color:var(--muted);
+  font-size:clamp(14px, 2.8vw, 18px);
+}
+.subtitle strong{ color:var(--text); text-shadow: var(--glow); }
+
+.hint{
+  display:block;
+  font-size:.9em;
+  opacity:.9;
+}
+
+/* Botón flotante */
+.more{
+  position:fixed;
+  right:16px; bottom:16px;
+  padding:12px 16px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.18);
+  background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04));
+  backdrop-filter: blur(6px);
+  color:#fff;
+  cursor:pointer;
+  box-shadow: 0 10px 30px -10px rgba(0,0,0,.6);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.more:hover{ transform: translateY(-2px); box-shadow: 0 16px 40px -12px rgba(0,0,0,.65); }
+
+/* Partículas de corazones */
+.heart{
+  position:absolute;
+  will-change: transform, opacity;
+  pointer-events:none;
+  filter: drop-shadow(0 6px 20px rgba(255,71,126,.35));
+  animation: floatUp var(--dur) linear forwards, sway 3s ease-in-out infinite alternate;
+  transform-origin:center;
+}
+.heart span{
+  display:block;
+  font-size:var(--size);
+  line-height:1;
+  transform: rotate(var(--rot));
+  color: var(--col, var(--love));
+  text-shadow: 0 2px 14px rgba(255,71,126,.35);
+}
+
+@keyframes floatUp{
+  from{ transform: translateY(0) scale(1); opacity:1; }
+  to  { transform: translateY(-110vh) scale(1.1); opacity:0; }
+}
+@keyframes sway{
+  from{ transform: translateX(-14px) }
+  to  { transform: translateX(14px) }
+}
+
+/* Responsivo leve */
+@media (max-width:480px){
+  .hint{ display:none; }
+}
