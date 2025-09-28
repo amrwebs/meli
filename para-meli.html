@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<title>Para Meli — Con todo mi amor</title>
+<meta name="theme-color" content="#ffbfd6">
+<style>
+  :root{
+    --bg:#0b0b10;
+    --ink:#ffffff;
+    --rose:#ff4d79;
+    --rose-deep:#e0004d;
+    --glass: rgba(255,255,255,.12);
+    --accent:#ffd1e1;
+    --heart:#ff6b9d;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    color:var(--ink);
+    background: var(--bg);
+    font-family: 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif;
+    line-height:1.65;
+    overflow-x:hidden;
+  }
+  /* ----- Background: knight giving a rose to a lady (inline SVG silhouette) ----- */
+  .bg{
+    position:fixed; inset:0;
+    background:
+      radial-gradient(1200px 800px at 50% 85%, rgba(255,77,121,.25), transparent 60%),
+      linear-gradient(180deg, rgba(255,255,255,.05), transparent 40%),
+      url('data:image/svg+xml;utf8,<?xml version="1.0" encoding="UTF-8"?><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="%230b0b10"/><stop offset="1" stop-color="%230b0b10"/></linearGradient></defs><rect width="1200" height="800" fill="url(%23g)"/><!-- ground --> <ellipse cx="600" cy="700" rx="520" ry="80" fill="%23101018" opacity=".9"/><!-- moon glow --> <circle cx="900" cy="140" r="120" fill="%23ffffff" opacity=".07"/><!-- Knight silhouette --> <g fill="%23000000"><g transform="translate(380,340)"><ellipse cx="90" cy="220" rx="80" ry="25" fill="%23000000" opacity=".45"/><path d="M60,40 a40,40 0 1,0 80,0 a40,40 0 1,0 -80,0" fill="%23000000"/><!-- helmet plume --> <path d="M120,10 q40,-40 90,-20 q-40,35 -70,55 z" fill="%23000000"/><!-- torso + cape --> <path d="M70,80 l60,0 l20,60 l-10,80 l-70,0 l-10,-70 z" fill="%23000000"/> <path d="M140,90 q120,60 140,200 l-120,-60 z" fill="%23000000"/> <!-- legs --> <rect x="80" y="220" width="22" height="70"/> <rect x="120" y="220" width="22" height="70"/> <!-- arm forward --> <rect x="145" y="120" width="80" height="14" rx="7" ry="7"/> <!-- hand --> <circle cx="230" cy="127" r="10"/></g></g><!-- rose in knight hand --> <g transform="translate(615,467)"><rect x="0" y="0" width="80" height="6" rx="3" ry="3" fill="%23000000"/><circle cx="78" cy="3" r="10" fill="%23e0004d"/><path d="M72,3 q10,-18 25,-8 q-14,4 -20,16 z" fill="%23ff4d79"/></g><!-- Lady silhouette --> <g transform="translate(700,300)" fill="%23000000"><ellipse cx="90" cy="320" rx="70" ry="22" opacity=".45"/><!-- head --> <circle cx="90" cy="70" r="34"/><!-- hair --> <path d="M60,60 q-30,30 -20,80 q40,-20 80,0 q10,-50 -20,-85 z" /> <!-- neck --> <rect x="82" y="95" width="16" height="22"/> <!-- torso --> <path d="M65,120 q25,20 50,0 q18,30 10,70 q-40,10 -70,0 q-8,-38 10,-70 z"/> <!-- dress --> <path d="M40,190 l100,0 l30,120 l-160,0 z"/> <!-- arm reaching --> <rect x="120" y="130" width="90" height="12" rx="6" ry="6"/><circle cx="212" cy="136" r="8"/></g><!-- soft hearts in background --> <g opacity=".06" fill="%23ff6b9d"><path d="M170 160c-18-34-72-27-72 13 0 46 72 82 72 82s72-36 72-82c0-40-54-47-72-13z"/><path d="M1020 260c-18-34-72-27-72 13 0 46 72 82 72 82s72-36 72-82c0-40-54-47-72-13z"/></g></svg>') center/cover no-repeat;
+    filter: saturate(1.1) contrast(1);
+    z-index:-2;
+  }
+  /* Subtle vignette */
+  .shade{position:fixed; inset:0; background:radial-gradient(ellipse at 60% 70%, rgba(0,0,0,.18), rgba(0,0,0,.65)); z-index:-1;}
+  /* ----- Layout ----- */
+  .wrap{
+    min-height:100dvh;
+    display:flex; align-items:center; justify-content:center;
+    padding: clamp(16px, 4vw, 40px);
+  }
+  .card{
+    width:min(880px, 100%);
+    background:linear-gradient(160deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
+    backdrop-filter: blur(8px);
+    border:1px solid rgba(255,255,255,.18);
+    border-radius: 24px;
+    box-shadow: 0 20px 60px rgba(0,0,0,.45), inset 0 0 0 1px rgba(255,255,255,.06);
+    padding: clamp(18px, 3.5vw, 36px);
+  }
+  h1{
+    margin:0 0 .25rem 0;
+    font-weight:800;
+    letter-spacing:.2px;
+    font-size: clamp(26px, 4.8vw, 40px);
+    line-height:1.15;
+  }
+  .subtitle{
+    margin:0 0 1rem 0;
+    font-size: clamp(14px, 3.6vw, 18px);
+    opacity:.95;
+  }
+  .cta{
+    display:inline-flex; align-items:center; gap:.6rem;
+    border:none; cursor:pointer;
+    background: radial-gradient(120% 140% at 30% 20%, var(--rose), var(--rose-deep));
+    color:white; font-weight:700; letter-spacing:.3px;
+    padding:.95rem 1.15rem;
+    border-radius: 999px;
+    box-shadow: 0 12px 28px rgba(224,0,77,.35), inset 0 -2px 0 rgba(255,255,255,.25);
+    transition: transform .15s ease, box-shadow .2s ease, filter .2s ease;
+    font-size: clamp(14px, 3.8vw, 16px);
+    margin:.25rem 0 1rem 0;
+  }
+  .cta:active{ transform: translateY(1px) scale(.99); }
+  .cta:hover{ filter: brightness(1.05); box-shadow: 0 14px 32px rgba(224,0,77,.45), inset 0 -2px 0 rgba(255,255,255,.35); }
+  .cta .heart{ font-size:1.1em; filter: drop-shadow(0 2px 4px rgba(255,0,77,.35)); }
+  .progress{
+    height:6px; width:100%; background:rgba(255,255,255,.08);
+    border-radius:999px; overflow:hidden; margin:.3rem 0 1rem 0;
+  }
+  .bar{height:100%; width:0%; background: linear-gradient(90deg, var(--rose), var(--accent)); transition: width .3s ease;}
+  .msg{
+    font-size: clamp(16px, 4.2vw, 18px);
+    white-space: pre-wrap;
+  }
+  .bubble{
+    background: rgba(255,255,255,.10);
+    border:1px solid rgba(255,255,255,.18);
+    border-radius:18px;
+    padding:14px 16px;
+    line-height:1.7;
+  }
+  .footer{
+    margin-top: 1rem;
+    display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap;
+    font-size: 12px; opacity:.85;
+  }
+  /* Floating hearts */
+  .hearts{ position:fixed; inset:0; pointer-events:none; overflow:hidden; z-index:0;}
+  .h{ position:absolute; bottom:-40px; font-size:20px; opacity:.0; animation: float 6.5s linear forwards; text-shadow: 0 4px 12px rgba(255,0,77,.35); }
+  @keyframes float{
+    0%{transform: translateY(0) translateX(0) scale(.8) rotate(0deg); opacity:0;}
+    10%{opacity:.75;}
+    100%{transform: translateY(-110vh) translateX(calc(var(--x) * 1px)) scale(1.3) rotate(6deg); opacity:0;}
+  }
+  /* Mobile niceties */
+  @media (max-width: 420px){
+    .card{ padding:18px}
+    .footer{justify-content:center; text-align:center}
+  }
+</style>
+</head>
+<body>
+  <div class="bg" aria-hidden="true"></div>
+  <div class="shade" aria-hidden="true"></div>
+  <div class="hearts" id="hearts" aria-hidden="true"></div>
+
+  <main class="wrap">
+    <article class="card" role="region" aria-label="Carta para Meli">
+      <header>
+        <h1>Hola Meli, te amo. <span aria-hidden="true">💗</span></h1>
+        <p class="subtitle">Hice esta página para vos, con todo mi corazón.</p>
+        <button id="play" class="cta" aria-live="polite" aria-controls="mensaje">
+          <span class="heart">💘</span> Hace clic acá para leer mi mensaje
+        </button>
+        <div class="progress" aria-hidden="true"><div id="bar" class="bar"></div></div>
+      </header>
+
+      <section id="mensaje" class="msg bubble"></section>
+
+      <footer class="footer">
+        <span>De Adriel, para vos. Siempre.</span>
+        <span id="stepTxt">0%</span>
+      </footer>
+    </article>
+  </main>
+
+<script>
+/* ------- Floating hearts on every click ------- */
+const heartsBox = document.getElementById('hearts');
+function burstHearts(){
+  const n = 8 + Math.floor(Math.random()*6);
+  for(let i=0;i<n;i++){
+    const s = document.createElement('div');
+    s.className='h';
+    s.textContent = ['❤️','💖','💗','💘','💞','💕'][Math.floor(Math.random()*6)];
+    s.style.left = Math.random()*100 + 'vw';
+    s.style.setProperty('--x', (Math.random()*200-100).toFixed(0));
+    s.style.animationDuration = (5 + Math.random()*3).toFixed(2)+'s';
+    s.style.fontSize = (18 + Math.random()*18)+'px';
+    heartsBox.appendChild(s);
+    setTimeout(()=>s.remove(), 9000);
+  }
+}
+
+/* ------- Message typing logic (advances on each click) ------- */
+const play = document.getElementById('play');
+const out  = document.getElementById('mensaje');
+const bar  = document.getElementById('bar');
+const stepTxt = document.getElementById('stepTxt');
+
+// Message split into parts to reveal click by click.
+const parts = [
+`Te amo mucho, y te voy a amar siempre. Quiero decirte que si me puse mal, si hice cosas mal, nunca fue con intención. Desde que empecé con la enfermedad de los granos me sentí peor, y a veces me encerré. Lo siento.`,
+
+`Hubo momentos donde dejé que la enfermedad me afecte más de la cuenta. Hoy me siento mejor, pero siento que me marco en lo personal. Aun así, fuiste y sos la mujer que más amé en el mundo. Me hiciste sentir cosas hermosas que nunca había sentido.`,
+
+`Me acuerdo cuando nos conocimos, cuando íbamos caminando por el parque de la mano. Yo estaba perdidamente enamorado de vos—como sigo estándolo. Pensaba: “no quiero que llegue el día en que esto se termine”. Estaba tan feliz y orgulloso de tenerte.`,
+
+`Sé que estuve mal estos meses, y te lo dije: no tengo problema en apoyarte en tu trabajo; si querés dormir, no me molesta. Me encanta tenerte cerca. A veces me puse caprichoso solo porque me gusta estar con vos, pero mil veces prefiero que estés en mi cama a no tenerte nunca más.`,
+
+`Me volví más maduro. Me falta, pero te respeto mucho. Te deseo lo mejor. No me imagino sin vos ahora mismo, pero sé que el tiempo pasa. Perdón por estos meses en los que estuve más desatento: nunca dejé de amarte. Siempre fui fiel con mi sentir, solo a vos.`,
+
+`Pensé mil veces en casarnos, en tener un hijo o una hija. No tengo problema en estar con vos porque te sigo amando, y por eso hago todo esto.`,
+
+`Me parecés hermosa. Cuando te reís, cuando nos peleamos, incluso cuando te enojás me dan más ganas de besarte y amarte. Estabas tan hermosa con esa remera del yaguané, el jean y ese saco rojo. Cada vez que te veo me vuelvo a enamorar.`,
+
+`Siempre pienso: “tengo una novia hermosísima”. Sos la más linda del mundo para mí. Quiero abrazarte todo el tiempo, estar acurrucado con vos todo el día. Me hiciste bien cuando yo estaba mal y sané gracias a vos, y eso te lo agradezco con el alma.`,
+
+`No te quiero perder. Si alguna vez tenemos otra oportunidad, quiero estar juntos. No fue un desperdicio: por más que haya pasado de todo, quiero seguir con vos y tener otra chance. Me encantaría casarme con vos y terminar la vida a tu lado.`,
+
+`También entiendo que todo tiene tiempos. Ojalá podamos resolverlo, ojalá no haga falta alejarnos.`,
+
+`Te dedico esta página porque me nace: es un detalle que puedo hacer con lo que amo—crear—y quiero regalártelo. Gracias por lo que vivimos. Te amo con todo mi corazón.`
+];
+
+let idx = 0;           // current part index
+let pos = 0;           // char index within current part
+let typing = false;    // prevent re-entrancy
+
+function updateProgress(){
+  const progress = Math.round((idx / parts.length) * 100);
+  bar.style.width = progress + '%';
+  stepTxt.textContent = progress + '%';
+}
+
+function typeNextChar(){
+  if(idx >= parts.length){ return; }
+  typing = true;
+  const text = parts[idx];
+  out.textContent += text[pos];
+  pos++;
+  if(pos < text.length){
+    setTimeout(typeNextChar, 18); // typing speed
+  }else{
+    out.textContent += "\\n\\n";
+    idx++; pos = 0; typing = false;
+    updateProgress();
+    if(idx < parts.length){
+      play.innerHTML = '<span class="heart">💘</span> Seguir leyendo';
+    }else{
+      play.innerHTML = 'Gracias por leerme <span class="heart">💖</span>';
+      play.disabled = true;
+      play.style.opacity = .85;
+    }
+  }
+}
+
+function handleClick(){
+  burstHearts();
+  if(typing) return;   // ignore if still typing
+  if(idx >= parts.length) return;
+  typeNextChar();
+}
+
+play.addEventListener('click', handleClick);
+updateProgress();
+
+// Accessibility: also advance with Space/Enter when focused
+play.addEventListener('keydown', (e)=>{
+  if(e.key === 'Enter' || e.key === ' '){
+    e.preventDefault();
+    handleClick();
+  }
+});
+</script>
+</body>
+</html>
